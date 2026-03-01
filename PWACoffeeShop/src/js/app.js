@@ -139,40 +139,97 @@ const capturarPrimerClick = () => {
 };
 
 // =========================================================
+// Modal: Mostrar órdenes guardadas en localStorage
+// =========================================================
+const abrirModalOrdenes = () => {
+  const modal = document.getElementById('orders-modal');
+  const lista = document.getElementById('modal-orders-list');
+  const misOrdenes = JSON.parse(localStorage.getItem('misOrdenesArray')) || [];
+
+  if (misOrdenes.length === 0) {
+    lista.innerHTML = '<p class="modal-empty">No tienes órdenes registradas aún.</p>';
+  } else {
+    lista.innerHTML = misOrdenes.map((orden, index) => `
+      <div class="order-item">
+        <span class="order-item-title">#${index + 1} — ${orden.cafe}</span>
+        <span class="order-item-detail">Tamaño: ${orden.tamaño} &nbsp;|&nbsp; Azúcar: ${orden.azucar ? 'Sí' : 'No'}</span>
+        <span class="order-item-date">📅 ${orden.fecha}</span>
+      </div>
+    `).join('');
+  }
+
+  modal.hidden = false;
+  document.body.style.overflow = 'hidden';
+};
+
+const cerrarModalOrdenes = () => {
+  const modal = document.getElementById('orders-modal');
+  modal.hidden = true;
+  document.body.style.overflow = '';
+};
+
+// Exponemos las funciones globalmente para que el onclick del HTML las encuentre
+window.abrirModalOrdenes = abrirModalOrdenes;
+window.cerrarModalOrdenes = cerrarModalOrdenes;
+
+// =========================================================
+//  Listeners del Modal
+//  (type="module" es siempre diferido: el DOM ya está listo)
+// =========================================================
+const counterBtn = document.getElementById('order-counter-btn');
+const closeBtn   = document.getElementById('modal-close-btn');
+const clearBtn   = document.getElementById('btn-clear-orders');
+const overlay    = document.getElementById('orders-modal');
+
+if (counterBtn) counterBtn.addEventListener('click', abrirModalOrdenes);
+if (closeBtn)   closeBtn.addEventListener('click', cerrarModalOrdenes);
+if (clearBtn) {
+  clearBtn.addEventListener('click', () => {
+    localStorage.removeItem('misOrdenesArray');
+    actualizarContador();
+    cerrarModalOrdenes();
+  });
+}
+if (overlay) {
+  overlay.addEventListener('click', (e) => {
+    if (e.target === overlay) cerrarModalOrdenes();
+  });
+}
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape') cerrarModalOrdenes();
+});
+
+// =========================================================
 //  Encadenamiento de las Promesas
 // =========================================================
-document.addEventListener("DOMContentLoaded", () => {
-  container.innerHTML = "<h2 style='text-align:center;'>Preparando tu café...</h2>";
+container.innerHTML = "<h2 style='text-align:center;'>Preparando tu café...</h2>";
 
-  actualizarContador()
-    .then((mensajeContador) => {
-      console.log("1. Contador ordenes actualizado");
-      return obtenerDatos();
-    })
-    .then((datos) => {
-      console.log("2. Datos obtenidos con éxito.");
-      return renderizarCafes(datos);
-    })
-    .then((mensajeRender) => {
-      console.log(`2. ${mensajeRender}`);
-      return esperarImagenes();
-    })
-    .then((mensajeImagenes) => {
-      console.log(`3. ${mensajeImagenes}`);
-      console.log("-> La interfaz está 100% lista para usarse.");
-      // Aquí empieza a esperar que el usuario haga click
-      return capturarPrimerClick();
-    })
-    .then((nombreCafe) => {
-      console.log(`4. Usuario eligió: ${nombreCafe}. Redirigiendo...`);
-      // Redirigimos a la página de la orden pasando el nombre en la URL
-      window.location.href = `order.html?coffee=${encodeURIComponent(nombreCafe)}`;
-    })
-    .catch((error) => {
-      console.error(error);
-      container.innerHTML = "<h2>Lo sentimos, ocurrió un error al cargar los cafés.</h2>";
-    });
-});
+actualizarContador()
+  .then((mensajeContador) => {
+    console.log("1. Contador ordenes actualizado");
+    return obtenerDatos();
+  })
+  .then((datos) => {
+    console.log("2. Datos obtenidos con éxito.");
+    return renderizarCafes(datos);
+  })
+  .then((mensajeRender) => {
+    console.log(`2. ${mensajeRender}`);
+    return esperarImagenes();
+  })
+  .then((mensajeImagenes) => {
+    console.log(`3. ${mensajeImagenes}`);
+    console.log("-> La interfaz está 100% lista para usarse.");
+    return capturarPrimerClick();
+  })
+  .then((nombreCafe) => {
+    console.log(`4. Usuario eligió: ${nombreCafe}. Redirigiendo...`);
+    window.location.href = `order.html?coffee=${encodeURIComponent(nombreCafe)}`;
+  })
+  .catch((error) => {
+    console.error(error);
+    container.innerHTML = "<h2>Lo sentimos, ocurrió un error al cargar los cafés.</h2>";
+  });
 
 // =========================================================
 // Registro del Service Worker
