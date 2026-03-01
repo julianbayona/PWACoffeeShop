@@ -1,0 +1,664 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Elige tu Plan</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@300;400;500;600&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --cream: #FAF7F2;
+            --dark: #1A1209;
+            --gold: #C9922A;
+            --gold-light: #F0C96B;
+            --bronze: #8B5E1A;
+            --emerald: #1A6B4A;
+            --emerald-light: #E8F5EE;
+            --red: #C0392B;
+            --red-light: #FDECEA;
+            --amber-light: #FEF3E2;
+            --border: rgba(201, 146, 42, 0.2);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: var(--cream);
+            font-family: 'DM Sans', sans-serif;
+            color: var(--dark);
+            min-height: 100vh;
+            padding: 60px 20px;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: -200px;
+            right: -200px;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(201, 146, 42, 0.08) 0%, transparent 70%);
+            pointer-events: none;
+        }
+
+        body::after {
+            content: '';
+            position: fixed;
+            bottom: -200px;
+            left: -200px;
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, rgba(26, 107, 74, 0.07) 0%, transparent 70%);
+            pointer-events: none;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 60px;
+            animation: fadeDown 0.7s ease both;
+        }
+
+        .header .eyebrow {
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            color: var(--gold);
+            margin-bottom: 16px;
+            display: block;
+        }
+
+        .header h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(2.4rem, 5vw, 3.8rem);
+            font-weight: 900;
+            line-height: 1.1;
+            color: var(--dark);
+            margin-bottom: 16px;
+        }
+
+        .header p {
+            color: #6B5A3E;
+            font-size: 1.05rem;
+            font-weight: 300;
+        }
+
+        .plans-wrapper {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 24px;
+            max-width: 900px;
+            margin: 0 auto 40px;
+        }
+
+        .plan-card {
+            border-radius: 20px;
+            padding: 36px 32px 40px;
+            position: relative;
+            animation: fadeUp 0.7s ease both;
+        }
+
+        .plan-card.basic {
+            background: white;
+            border: 1.5px solid rgba(201, 146, 42, 0.15);
+            box-shadow: 0 4px 30px rgba(26, 18, 9, 0.06);
+            animation-delay: 0.1s;
+        }
+
+        .plan-card.advanced {
+            background: var(--dark);
+            border: 1.5px solid var(--gold);
+            box-shadow: 0 8px 50px rgba(201, 146, 42, 0.2);
+            animation-delay: 0.2s;
+        }
+
+        .badge {
+            position: absolute;
+            top: -14px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: linear-gradient(135deg, var(--gold), var(--gold-light));
+            color: var(--dark);
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            padding: 6px 18px;
+            border-radius: 20px;
+            white-space: nowrap;
+        }
+
+        .plan-icon {
+            font-size: 2rem;
+            margin-bottom: 12px;
+            display: block;
+        }
+
+        .plan-name {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.6rem;
+            font-weight: 700;
+            margin-bottom: 6px;
+        }
+
+        .plan-card.basic .plan-name {
+            color: var(--dark);
+        }
+
+        .plan-card.advanced .plan-name {
+            color: var(--gold-light);
+        }
+
+        .plan-subtitle {
+            font-size: 0.85rem;
+            margin-bottom: 24px;
+        }
+
+        .plan-card.basic .plan-subtitle {
+            color: #8B7355;
+        }
+
+        .plan-card.advanced .plan-subtitle {
+            color: rgba(255, 255, 255, 0.5);
+        }
+
+        .plan-price {
+            margin-bottom: 28px;
+            padding-bottom: 28px;
+            border-bottom: 1px solid;
+        }
+
+        .plan-card.basic .plan-price {
+            border-color: rgba(201, 146, 42, 0.15);
+        }
+
+        .plan-card.advanced .plan-price {
+            border-color: rgba(201, 146, 42, 0.25);
+        }
+
+        .plan-price .amount {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.2rem;
+            font-weight: 900;
+            display: block;
+        }
+
+        .plan-card.basic .amount {
+            color: var(--dark);
+        }
+
+        .plan-card.advanced .amount {
+            color: var(--gold-light);
+        }
+
+        .plan-price .period {
+            font-size: 0.8rem;
+            font-weight: 400;
+        }
+
+        .plan-card.basic .period {
+            color: #8B7355;
+        }
+
+        .plan-card.advanced .period {
+            color: rgba(255, 255, 255, 0.4);
+        }
+
+        .features-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 13px;
+            margin-bottom: 32px;
+        }
+
+        .feature-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            font-size: 0.88rem;
+            line-height: 1.5;
+        }
+
+        .feature-icon {
+            width: 22px;
+            height: 22px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.75rem;
+            flex-shrink: 0;
+            margin-top: 1px;
+        }
+
+        .fi-yes {
+            background: var(--emerald-light);
+            color: var(--emerald);
+        }
+
+        .fi-no {
+            background: var(--red-light);
+            color: var(--red);
+        }
+
+        .fi-warn {
+            background: var(--amber-light);
+            color: var(--gold);
+        }
+
+        .plan-card.advanced .fi-yes {
+            background: rgba(26, 107, 74, 0.25);
+            color: #5BD4A0;
+        }
+
+        .plan-card.advanced .fi-no {
+            background: rgba(192, 57, 43, 0.2);
+            color: #FF7B70;
+        }
+
+        .feature-text {
+            flex: 1;
+        }
+
+        .plan-card.basic .feature-text {
+            color: #3D2E1A;
+        }
+
+        .plan-card.advanced .feature-text {
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        .cta-btn {
+            width: 100%;
+            padding: 15px;
+            border-radius: 12px;
+            font-family: 'DM Sans', sans-serif;
+            font-size: 0.95rem;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            cursor: pointer;
+            border: none;
+            transition: all 0.25s ease;
+        }
+
+        .plan-card.basic .cta-btn {
+            background: transparent;
+            border: 2px solid var(--gold);
+            color: var(--gold);
+        }
+
+        .plan-card.basic .cta-btn:hover {
+            background: var(--gold);
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(201, 146, 42, 0.3);
+        }
+
+        .plan-card.advanced .cta-btn {
+            background: linear-gradient(135deg, var(--gold), var(--gold-light));
+            color: var(--dark);
+            box-shadow: 0 4px 20px rgba(201, 146, 42, 0.35);
+        }
+
+        .plan-card.advanced .cta-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(201, 146, 42, 0.5);
+        }
+
+        /* COMPARISON TABLE */
+        .comparison-section {
+            max-width: 900px;
+            margin: 0 auto;
+            animation: fadeUp 0.7s 0.35s ease both;
+        }
+
+        .comparison-section h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.4rem;
+            text-align: center;
+            margin-bottom: 20px;
+            color: var(--dark);
+        }
+
+        .comp-table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 4px 30px rgba(26, 18, 9, 0.07);
+        }
+
+        .comp-table thead tr {
+            background: var(--dark);
+        }
+
+        .comp-table thead th {
+            padding: 18px 20px;
+            font-family: 'DM Sans', sans-serif;
+            font-size: 0.85rem;
+            font-weight: 600;
+            text-align: center;
+            color: rgba(255, 255, 255, 0.5);
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        .comp-table thead th:first-child {
+            text-align: left;
+            color: rgba(255, 255, 255, 0.35);
+        }
+
+        .comp-table thead th.col-advanced {
+            color: var(--gold-light);
+        }
+
+        .comp-table tbody tr {
+            border-bottom: 1px solid rgba(201, 146, 42, 0.08);
+            transition: background 0.2s;
+        }
+
+        .comp-table tbody tr:last-child {
+            border-bottom: none;
+        }
+
+        .comp-table tbody tr:hover {
+            background: rgba(201, 146, 42, 0.04);
+        }
+
+        .comp-table td {
+            padding: 15px 20px;
+            font-size: 0.875rem;
+            text-align: center;
+            vertical-align: middle;
+        }
+
+        .comp-table td:first-child {
+            text-align: left;
+            font-weight: 500;
+            color: var(--dark);
+        }
+
+        .cell-yes {
+            color: var(--emerald);
+            font-size: 1.1rem;
+        }
+
+        .cell-no {
+            color: var(--red);
+            font-size: 1.1rem;
+        }
+
+        .cell-warn {
+            color: var(--gold);
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+
+        .note {
+            text-align: center;
+            margin-top: 32px;
+            font-size: 0.8rem;
+            color: #9B8A6E;
+            animation: fadeUp 0.7s 0.5s ease both;
+        }
+
+        @keyframes fadeUp {
+            from {
+                opacity: 0;
+                transform: translateY(24px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeDown {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @media (max-width: 600px) {
+            .plans-wrapper {
+                grid-template-columns: 1fr;
+            }
+
+            .comp-table {
+                font-size: 0.8rem;
+            }
+
+            .comp-table td,
+            .comp-table th {
+                padding: 12px 10px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="header">
+        <span class="eyebrow">Sistema de Gestión</span>
+        <h1>Elige el plan<br>ideal para ti</h1>
+        <p>Compara las características y selecciona lo que mejor se adapta a tu negocio</p>
+    </div>
+
+    <!-- PLAN CARDS -->
+    <div class="plans-wrapper">
+
+        <!-- BÁSICO -->
+        <div class="plan-card basic">
+            <span class="plan-icon">💼</span>
+            <div class="plan-name">Plan Básico</div>
+            <div class="plan-subtitle">Para negocios que están comenzando</div>
+            <div class="plan-price">
+                <span class="amount">$1.500.000</span>
+                <span class="period">pago único</span>
+            </div>
+            <ul class="features-list">
+                <li class="feature-item">
+                    <div class="feature-icon fi-yes">✓</div>
+                    <span class="feature-text">Gestión de productos</span>
+                </li>
+                <li class="feature-item">
+                    <div class="feature-icon fi-yes">✓</div>
+                    <span class="feature-text">Registro de ventas</span>
+                </li>
+                <li class="feature-item">
+                    <div class="feature-icon fi-yes">✓</div>
+                    <span class="feature-text">Historial de facturas</span>
+                </li>
+                <li class="feature-item">
+                    <div class="feature-icon fi-warn">!</div>
+                    <span class="feature-text">Reportes con clave compartida</span>
+                </li>
+                <li class="feature-item">
+                    <div class="feature-icon fi-no">✕</div>
+                    <span class="feature-text">Sin respaldo de seguridad</span>
+                </li>
+                <li class="feature-item">
+                    <div class="feature-icon fi-no">✕</div>
+                    <span class="feature-text">Sin envío de facturas a clientes</span>
+                </li>
+                <li class="feature-item">
+                    <div class="feature-icon fi-no">✕</div>
+                    <span class="feature-text">Sin personalización de tickets</span>
+                </li>
+                <li class="feature-item">
+                    <div class="feature-icon fi-no">✕</div>
+                    <span class="feature-text">No preparado para facturación electrónica</span>
+                </li>
+            </ul>
+            <button class="cta-btn">Elegir Plan Básico</button>
+        </div>
+
+        <!-- AVANZADO -->
+        <div class="plan-card advanced">
+            <div class="badge">⭐ Recomendado</div>
+            <span class="plan-icon">🚀</span>
+            <div class="plan-name">Plan Avanzado</div>
+            <div class="plan-subtitle">Completo, seguro y preparado para crecer</div>
+            <div class="plan-price">
+                <span class="amount">$2.000.000</span>
+                <span class="period">pago único</span>
+            </div>
+            <ul class="features-list">
+                <li class="feature-item">
+                    <div class="feature-icon fi-yes">✓</div>
+                    <span class="feature-text">Gestión de productos</span>
+                </li>
+                <li class="feature-item">
+                    <div class="feature-icon fi-yes">✓</div>
+                    <span class="feature-text">Registro de ventas</span>
+                </li>
+                <li class="feature-item">
+                    <div class="feature-icon fi-yes">✓</div>
+                    <span class="feature-text">Historial de facturas</span>
+                </li>
+                <li class="feature-item">
+                    <div class="feature-icon fi-yes">✓</div>
+                    <span class="feature-text">Solo usuarios autorizados ven reportes</span>
+                </li>
+                <li class="feature-item">
+                    <div class="feature-icon fi-yes">✓</div>
+                    <span class="feature-text">Respaldo ante pérdida o daño del equipo</span>
+                </li>
+                <li class="feature-item">
+                    <div class="feature-icon fi-yes">✓</div>
+                    <span class="feature-text">Clientes reciben su factura de consumo</span>
+                </li>
+                <li class="feature-item">
+                    <div class="feature-icon fi-yes">✓</div>
+                    <span class="feature-text">Personalización completa de tickets</span>
+                </li>
+                <li class="feature-item">
+                    <div class="feature-icon fi-yes">✓</div>
+                    <span class="feature-text">Preparado para facturación electrónica</span>
+                </li>
+            </ul>
+            <button class="cta-btn">Elegir Plan Avanzado</button>
+        </div>
+
+    </div>
+
+    <!-- COMPARISON TABLE -->
+    <div class="comparison-section">
+        <h2>Comparación detallada</h2>
+        <table class="comp-table">
+            <thead>
+                <tr>
+                    <th>Característica</th>
+                    <th>💼 Básico</th>
+                    <th class="col-advanced">⭐ Avanzado</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Gestión de productos</td>
+                    <td><span class="cell-yes">✓</span></td>
+                    <td><span class="cell-yes">✓</span></td>
+                </tr>
+                <tr>
+                    <td>Registro de ventas</td>
+                    <td><span class="cell-yes">✓</span></td>
+                    <td><span class="cell-yes">✓</span></td>
+                </tr>
+                <tr>
+                    <td>Historial de facturas</td>
+                    <td><span class="cell-yes">✓</span></td>
+                    <td><span class="cell-yes">✓</span></td>
+                </tr>
+                <tr>
+                    <td>Acceso a reportes sensibles</td>
+                    <td><span class="cell-warn">⚠ Clave compartida</span></td>
+                    <td><span class="cell-yes">✓ Solo autorizados</span></td>
+                </tr>
+                <tr>
+                    <td>Respaldo de seguridad</td>
+                    <td><span class="cell-no">✕</span></td>
+                    <td><span class="cell-yes">✓</span></td>
+                </tr>
+                <tr>
+                    <td>Envío de facturas a clientes</td>
+                    <td><span class="cell-no">✕</span></td>
+                    <td><span class="cell-yes">✓</span></td>
+                </tr>
+                <tr>
+                    <td>Personalización de tickets</td>
+                    <td><span class="cell-no">✕</span></td>
+                    <td><span class="cell-yes">✓</span></td>
+                </tr>
+                <tr>
+                    <td>Nivel de reportes</td>
+                    <td><span style="color:#8B7355; font-weight:500;">Básico</span></td>
+                    <td><span style="color:#1A6B4A; font-weight:500;">Avanzado</span></td>
+                </tr>
+                <tr>
+                    <td>Facturación electrónica futura</td>
+                    <td><span class="cell-no">✕ No adaptable</span></td>
+                    <td><span class="cell-yes">✓ Preparado</span></td>
+                </tr>
+                <tr>
+                    <td>Protección por usuarios específicos</td>
+                    <td><span class="cell-no">✕</span></td>
+                    <td><span class="cell-yes">✓</span></td>
+                </tr>
+                <tr style="background: linear-gradient(90deg, rgba(201,146,42,0.04), rgba(201,146,42,0.08))">
+                    <td><strong>Precio</strong></td>
+                    <td><strong>$1.500.000</strong></td>
+                    <td><strong style="color: var(--gold)">$2.000.000</strong></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <p class="note">Precios expresados en pesos colombianos (COP) · Pago único sin mensualidad</p>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+
+    <button onclick="descargarPDF()" style="
+position: fixed;
+top:20px;
+right:20px;
+padding:10px 20px;
+cursor:pointer;">
+        Descargar Cotización PDF
+    </button>
+
+    <script>
+        function descargarPDF() {
+            const elemento = document.body;
+
+            html2pdf()
+                .set({
+                    margin: 10,
+                    filename: 'cotizacion.pdf',
+                    image: { type: 'jpeg', quality: 1 },
+                    html2canvas: { scale: 2 },
+                    jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
+                })
+                .from(elemento)
+                .save();
+        }
+    </script>
+</body>
+
+</html>
