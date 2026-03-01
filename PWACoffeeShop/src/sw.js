@@ -1,9 +1,12 @@
-const staticDevCoffee = "dev-coffee-site-v1";
+const staticDevCoffee = "dev-coffee-site-v4";
 const assets = [
   "/",
   "/index.html",
+  "/orders.html",
   "/css/style.css",
+  "/css/orders.css",
   "/js/app.js",
+  "/js/orders.js",
   "/images/coffee1.jpg",
   "/images/coffee2.jpg",
   "/images/coffee3.jpg",
