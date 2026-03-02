@@ -100,22 +100,12 @@ if (orderForm) {
         // Ejecutamos nuestra Promesa
         guardarEnArray(nuevaOrden)
             .then((mensaje) => {
-                // Mostramos mensaje de éxito
-                resultDiv.textContent = `¡Listo! ${mensaje}`;
+                resultDiv.textContent = `¡Listo! Tu orden de ${coffeeName} ha sido registrada.`;
 
-                // IMPORTANTE: Para ver el arreglo en consola, 
-                // vamos a comentar temporalmente la redirección.
-                /*
+                // Redirigimos al menú después de 2 segundos
                 setTimeout(() => {
                     window.location.href = 'index.html';
-                }, 3000);
-                */
-
-                // Reactivamos el botón por si quieres hacer otra orden
-                setTimeout(() => {
-                    btnSubmit.disabled = false;
-                    btnSubmit.textContent = "Hacer otro pedido igual";
-                }, 1000);
+                }, 2000);
             })
             .catch((error) => {
                 console.error(error);

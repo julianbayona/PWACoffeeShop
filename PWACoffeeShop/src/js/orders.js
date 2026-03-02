@@ -11,6 +11,7 @@ const btnClear        = document.getElementById('btn-clear');
 // =========================================================
 function renderOrdenes() {
   const misOrdenes = JSON.parse(localStorage.getItem('misOrdenesArray')) || [];
+  const payFooter  = document.getElementById('pay-footer');
 
   if (misOrdenes.length === 0) {
     ordersContainer.innerHTML = `
@@ -20,8 +21,11 @@ function renderOrdenes() {
         <a href="index.html">Ver el menú</a>
       </div>
     `;
+    if (payFooter) payFooter.style.display = 'none';
     return;
   }
+
+  if (payFooter) payFooter.style.display = 'block';
 
   const total = misOrdenes.length;
   let html = `<p class="orders-total">${total} orden${total !== 1 ? 'es' : ''} registrada${total !== 1 ? 's' : ''}</p>`;

@@ -134,3 +134,190 @@
   background: #db4938;
   color: #fff;
 }
+
+/* ===== Botón Pagar ===== */
+.pay-footer {
+  text-align: center;
+  margin: 1.5rem 0 2rem;
+}
+
+.btn-pay {
+  display: inline-block;
+  background: #db4938;
+  color: #fff;
+  padding: 0.7rem 2rem;
+  border-radius: 25px;
+  font-size: 1rem;
+  font-weight: 700;
+  text-decoration: none;
+  font-family: "Nunito", sans-serif;
+  transition: background 0.2s, transform 0.15s;
+  box-shadow: 0 4px 12px rgba(219, 73, 56, 0.35);
+}
+
+.btn-pay:hover {
+  background: #c0392b;
+  transform: translateY(-2px);
+}
+
+/* ===== Página de Pago ===== */
+
+/* Total */
+.payment-total-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #fdf5f4;
+  border-radius: 8px;
+  padding: 0.85rem 1.25rem;
+  margin: 1rem 0 1.5rem;
+  font-size: 1.05rem;
+  color: #333;
+}
+
+.payment-total-row strong {
+  font-size: 1.3rem;
+  color: #db4938;
+}
+
+/* Selector de método */
+.payment-method-selector {
+  margin-bottom: 1.25rem;
+}
+
+.payment-method-label {
+  font-weight: 600;
+  color: #444;
+  margin-bottom: 0.6rem;
+}
+
+.method-tabs {
+  display: flex;
+  gap: 0.75rem;
+}
+
+.method-tab {
+  flex: 1;
+  padding: 0.6rem 0;
+  border: 2px solid #e0e0e0;
+  border-radius: 10px;
+  background: #fff;
+  color: #777;
+  font-family: "Nunito", sans-serif;
+  font-size: 0.95rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: border-color 0.2s, color 0.2s, background 0.2s;
+}
+
+.method-tab.active {
+  border-color: #db4938;
+  color: #db4938;
+  background: #fdf5f4;
+}
+
+.method-tab:hover:not(.active) {
+  border-color: #ccc;
+  color: #555;
+}
+
+/* Paneles */
+.payment-panel {
+  margin-top: 1rem;
+}
+
+/* Panel Efectivo */
+.cash-info {
+  text-align: center;
+  padding: 1.5rem;
+  background: #fdf5f4;
+  border-radius: 10px;
+  margin-bottom: 1.25rem;
+}
+
+.cash-info p {
+  color: #666;
+  margin-bottom: 0.4rem;
+}
+
+.cash-amount {
+  font-size: 2.2rem !important;
+  font-weight: 700;
+  color: #db4938 !important;
+  margin: 0.3rem 0 !important;
+}
+
+.cash-note {
+  font-size: 0.83rem;
+  color: #aaa !important;
+}
+
+/* Inputs de crédito */
+.payment-panel input[type="text"] {
+  width: 100%;
+  padding: 0.55rem 0.75rem;
+  border: 1px solid #ddd;
+  border-radius: 7px;
+  font-family: "Nunito", sans-serif;
+  font-size: 1rem;
+  transition: border-color 0.2s;
+  box-sizing: border-box;
+}
+
+.payment-panel input[type="text"]:focus {
+  outline: none;
+  border-color: #db4938;
+}
+
+.form-row {
+  display: flex;
+  gap: 1rem;
+}
+
+.form-row > div {
+  flex: 1;
+}
+
+.field-error {
+  display: block;
+  color: #e74c3c;
+  font-size: 0.78rem;
+  margin-top: 0.25rem;
+  min-height: 1rem;
+}
+
+/* ===== Vista de Éxito ===== */
+.payment-success {
+  text-align: center;
+  padding: 2.5rem 1rem;
+}
+
+.success-icon {
+  font-size: 4rem;
+  margin-bottom: 0.75rem;
+}
+
+.payment-success h2 {
+  color: #27ae60;
+  font-size: 1.6rem;
+  margin-bottom: 0.5rem;
+}
+
+.payment-success p {
+  color: #555;
+  font-size: 1rem;
+  margin-bottom: 0.35rem;
+}
+
+.success-amount {
+  font-size: 1.3rem !important;
+  font-weight: 700;
+  color: #db4938 !important;
+}
+
+.success-note {
+  color: #888 !important;
+  font-size: 0.9rem !important;
+  margin-top: 0.5rem;
+}
+

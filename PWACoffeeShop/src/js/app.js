@@ -173,63 +173,66 @@ window.abrirModalOrdenes = abrirModalOrdenes;
 window.cerrarModalOrdenes = cerrarModalOrdenes;
 
 // =========================================================
-//  Listeners del Modal
-//  (type="module" es siempre diferido: el DOM ya está listo)
+//  Código exclusivo de index.html
+//  (guard: container es null en order.html y otras páginas)
 // =========================================================
-const counterBtn = document.getElementById('order-counter-btn');
-const closeBtn   = document.getElementById('modal-close-btn');
-const clearBtn   = document.getElementById('btn-clear-orders');
-const overlay    = document.getElementById('orders-modal');
+if (container) {
 
-if (counterBtn) counterBtn.addEventListener('click', abrirModalOrdenes);
-if (closeBtn)   closeBtn.addEventListener('click', cerrarModalOrdenes);
-if (clearBtn) {
-  clearBtn.addEventListener('click', () => {
-    localStorage.removeItem('misOrdenesArray');
-    actualizarContador();
-    cerrarModalOrdenes();
+  // Listeners del Modal
+  const counterBtn = document.getElementById('order-counter-btn');
+  const closeBtn   = document.getElementById('modal-close-btn');
+  const clearBtn   = document.getElementById('btn-clear-orders');
+  const overlay    = document.getElementById('orders-modal');
+
+  if (counterBtn) counterBtn.addEventListener('click', abrirModalOrdenes);
+  if (closeBtn)   closeBtn.addEventListener('click', cerrarModalOrdenes);
+  if (clearBtn) {
+    clearBtn.addEventListener('click', () => {
+      localStorage.removeItem('misOrdenesArray');
+      actualizarContador();
+      cerrarModalOrdenes();
+    });
+  }
+  if (overlay) {
+    overlay.addEventListener('click', (e) => {
+      if (e.target === overlay) cerrarModalOrdenes();
+    });
+  }
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') cerrarModalOrdenes();
   });
+
+  // Encadenamiento de las Promesas
+  container.innerHTML = "<h2 style='text-align:center;'>Preparando tu café...</h2>";
+
+  actualizarContador()
+    .then((mensajeContador) => {
+      console.log("1. Contador ordenes actualizado");
+      return obtenerDatos();
+    })
+    .then((datos) => {
+      console.log("2. Datos obtenidos con éxito.");
+      return renderizarCafes(datos);
+    })
+    .then((mensajeRender) => {
+      console.log(`2. ${mensajeRender}`);
+      return esperarImagenes();
+    })
+    .then((mensajeImagenes) => {
+      console.log(`3. ${mensajeImagenes}`);
+      console.log("-> La interfaz está 100% lista para usarse.");
+      return capturarPrimerClick();
+    })
+    .then((nombreCafe) => {
+      console.log(`4. Usuario eligió: ${nombreCafe}. Redirigiendo...`);
+      window.location.href = `order.html?coffee=${encodeURIComponent(nombreCafe)}`;
+    })
+    .catch((error) => {
+      console.error(error);
+      container.innerHTML = "<h2>Lo sentimos, ocurrió un error al cargar los cafés.</h2>";
+    });
+
 }
-if (overlay) {
-  overlay.addEventListener('click', (e) => {
-    if (e.target === overlay) cerrarModalOrdenes();
-  });
-}
-document.addEventListener('keydown', (e) => {
-  if (e.key === 'Escape') cerrarModalOrdenes();
-});
-
-// =========================================================
-//  Encadenamiento de las Promesas
-// =========================================================
-container.innerHTML = "<h2 style='text-align:center;'>Preparando tu café...</h2>";
-
-actualizarContador()
-  .then((mensajeContador) => {
-    console.log("1. Contador ordenes actualizado");
-    return obtenerDatos();
-  })
-  .then((datos) => {
-    console.log("2. Datos obtenidos con éxito.");
-    return renderizarCafes(datos);
-  })
-  .then((mensajeRender) => {
-    console.log(`2. ${mensajeRender}`);
-    return esperarImagenes();
-  })
-  .then((mensajeImagenes) => {
-    console.log(`3. ${mensajeImagenes}`);
-    console.log("-> La interfaz está 100% lista para usarse.");
-    return capturarPrimerClick();
-  })
-  .then((nombreCafe) => {
-    console.log(`4. Usuario eligió: ${nombreCafe}. Redirigiendo...`);
-    window.location.href = `order.html?coffee=${encodeURIComponent(nombreCafe)}`;
-  })
-  .catch((error) => {
-    console.error(error);
-    container.innerHTML = "<h2>Lo sentimos, ocurrió un error al cargar los cafés.</h2>";
-  });
 
 // =========================================================
 // Registro del Service Worker

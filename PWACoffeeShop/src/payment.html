@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/orders.css">
+  <link rel="stylesheet" href="css/order.css">
+  <meta name="theme-color" content="#db4938">
+  <title>Confirmar Pago — Cafetería PWA</title>
+</head>
+
+<body>
+  <main>
+    <nav>
+      <h1>Cafeteria PWA</h1>
+      <a class="order-counter" href="orders.html" title="Volver a mis órdenes">← Órdenes</a>
+    </nav>
+
+    <!-- ===================== RESUMEN ===================== -->
+    <section class="orders-section" id="payment-view">
+      <div class="orders-header">
+        <h2>💳 Confirmar Pago</h2>
+      </div>
+
+      <!-- Lista de ítems -->
+      <div id="payment-items"></div>
+
+      <!-- Total -->
+      <div class="payment-total-row">
+        <span>Total a pagar:</span>
+        <strong id="payment-total">$0.00</strong>
+      </div>
+
+      <!-- =============== MÉTODO DE PAGO =============== -->
+      <div class="payment-method-selector">
+        <p class="payment-method-label">Selecciona el método de pago:</p>
+        <div class="method-tabs">
+          <button class="method-tab active" data-method="cash">💵 Efectivo</button>
+          <button class="method-tab"        data-method="credit">💳 Crédito</button>
+        </div>
+      </div>
+
+      <!-- ========== PANEL EFECTIVO ========== -->
+      <div id="panel-cash" class="payment-panel">
+        <div class="cash-info">
+          <p>Monto a entregar:</p>
+          <p class="cash-amount" id="cash-amount">$0.00</p>
+          <p class="cash-note">Por favor ten listo el monto exacto o tu billete. El cajero te dará el cambio.</p>
+        </div>
+        <button class="btn-submit" id="btn-confirm-cash">✅ Confirmar pago en efectivo</button>
+      </div>
+
+      <!-- ========== PANEL CRÉDITO ========== -->
+      <div id="panel-credit" class="payment-panel" style="display:none;">
+        <form id="credit-form" novalidate>
+
+          <div class="form-group">
+            <label for="card-name">Nombre en la tarjeta</label>
+            <input type="text" id="card-name" placeholder="Juan Pérez" autocomplete="cc-name" />
+            <span class="field-error" id="err-name"></span>
+          </div>
+
+          <div class="form-group">
+            <label for="card-number">Número de tarjeta</label>
+            <input type="text" id="card-number" placeholder="1234 5678 9012 3456"
+                   maxlength="19" autocomplete="cc-number" inputmode="numeric" />
+            <span class="field-error" id="err-number"></span>
+          </div>
+
+          <div class="form-group form-row">
+            <div>
+              <label for="card-expiry">Vencimiento</label>
+              <input type="text" id="card-expiry" placeholder="MM/AA"
+                     maxlength="5" autocomplete="cc-exp" inputmode="numeric" />
+              <span class="field-error" id="err-expiry"></span>
+            </div>
+            <div>
+              <label for="card-cvv">CVV</label>
+              <input type="text" id="card-cvv" placeholder="123"
+                     maxlength="4" autocomplete="cc-csc" inputmode="numeric" />
+              <span class="field-error" id="err-cvv"></span>
+            </div>
+          </div>
+
+          <button type="submit" class="btn-submit">✅ Confirmar pago con crédito</button>
+        </form>
+      </div>
+    </section>
+
+    <!-- ===================== ÉXITO ===================== -->
+    <section class="orders-section" id="success-view" style="display:none;">
+      <div class="payment-success">
+        <div class="success-icon">✅</div>
+        <h2>¡Pago aprobado!</h2>
+        <p id="success-method"></p>
+        <p class="success-amount" id="success-amount"></p>
+        <p class="success-note">Tu pedido está siendo preparado. ¡Gracias por tu compra!</p>
+        <a href="index.html" class="btn-pay" style="margin-top:1.5rem; display:inline-block;">
+          ☕ Hacer otro pedido
+        </a>
+      </div>
+    </section>
+
+  </main>
+
+  <script src="js/payment.js"></script>
+</body>
+
+</html>
