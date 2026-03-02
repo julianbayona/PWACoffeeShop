@@ -1,0 +1,114 @@
+/* ===== Página de Órdenes ===== */
+
+.orders-section {
+  max-width: 600px;
+  margin: 2rem auto;
+  padding: 0 1rem;
+}
+
+.orders-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+  border-bottom: 2px solid #f0f0f0;
+  padding-bottom: 1rem;
+}
+
+.orders-header h2 {
+  color: #db4938;
+  font-size: 1.4rem;
+  margin: 0;
+}
+
+.btn-clear {
+  background: none;
+  border: 1px solid #db4938;
+  color: #db4938;
+  padding: 0.4rem 1rem;
+  border-radius: 20px;
+  cursor: pointer;
+  font-family: "Nunito", sans-serif;
+  font-size: 0.875rem;
+  transition: background 0.2s, color 0.2s;
+}
+
+.btn-clear:hover {
+  background: #db4938;
+  color: #fff;
+}
+
+/* Tarjeta de cada orden */
+.order-card {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  background: #fff;
+  border-left: 4px solid #db4938;
+  border-radius: 8px;
+  padding: 1rem 1.25rem;
+  margin-bottom: 1rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  transition: transform 0.15s;
+}
+
+.order-card:hover {
+  transform: translateY(-2px);
+}
+
+.order-card-title {
+  font-weight: 700;
+  color: #db4938;
+  font-size: 1.05rem;
+}
+
+.order-card-detail {
+  color: #555;
+  font-size: 0.9rem;
+}
+
+.order-card-date {
+  color: #aaa;
+  font-size: 0.8rem;
+}
+
+/* Estado vacío */
+.orders-empty {
+  text-align: center;
+  padding: 3rem 0;
+  color: #bbb;
+}
+
+.orders-empty span {
+  display: block;
+  font-size: 3rem;
+  margin-bottom: 0.75rem;
+}
+
+.orders-empty p {
+  font-size: 1rem;
+}
+
+.orders-empty a {
+  display: inline-block;
+  margin-top: 1rem;
+  background: #db4938;
+  color: #fff;
+  padding: 0.5rem 1.5rem;
+  border-radius: 20px;
+  text-decoration: none;
+  font-weight: 700;
+  transition: background 0.2s;
+}
+
+.orders-empty a:hover {
+  background: #c0392b;
+}
+
+/* Total */
+.orders-total {
+  text-align: right;
+  color: #777;
+  font-size: 0.85rem;
+  margin-bottom: 1rem;
+}

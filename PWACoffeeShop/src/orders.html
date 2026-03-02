@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/orders.css">
+  <meta name="theme-color" content="#db4938">
+  <title>Mis Órdenes — Cafetería PWA</title>
+</head>
+
+<body>
+  <main>
+    <nav>
+      <h1>Cafeteria PWA</h1>
+      <a class="order-counter" href="index.html" title="Volver al menú">← Menú</a>
+    </nav>
+
+    <section class="orders-section">
+      <div class="orders-header">
+        <h2>☕ Mis Órdenes</h2>
+        <button id="btn-clear" class="btn-clear" title="Eliminar todas las órdenes">
+          🗑 Limpiar todo
+        </button>
+      </div>
+
+      <div id="orders-container">
+        <!-- Las órdenes se inyectan aquí por orders.js -->
+      </div>
+    </section>
+  </main>
+
+  <script src="js/orders.js"></script>
+</body>
+
+</html>

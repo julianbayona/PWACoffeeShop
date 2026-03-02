@@ -103,6 +103,13 @@ h1 {
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
   white-space: nowrap;
   transition: all 0.3s ease;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.order-counter:hover {
+  background: #db4938;
+  color: #fff;
 }
 
 /* ===== MODAL ===== */
