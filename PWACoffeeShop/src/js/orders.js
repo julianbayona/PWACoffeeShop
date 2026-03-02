@@ -36,6 +36,7 @@ function renderOrdenes() {
            Azúcar: <strong>${orden.azucar ? 'Sí' : 'No'}</strong>
         </span>
         <span class="order-card-date"> ${orden.fecha}</span>
+        <a class="btn-edit" href="edit-order.html?id=${orden.id}">&#9998; Editar</a>
       </div>
     `;
   });

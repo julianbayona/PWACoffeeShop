@@ -112,3 +112,25 @@
   font-size: 0.85rem;
   margin-bottom: 1rem;
 }
+
+/* Botón editar orden */
+.btn-edit {
+  align-self: flex-start;
+  margin-top: 0.4rem;
+  background: none;
+  border: 1px solid #db4938;
+  color: #db4938;
+  padding: 0.3rem 0.9rem;
+  border-radius: 20px;
+  font-size: 0.82rem;
+  font-family: "Nunito", sans-serif;
+  font-weight: 700;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s;
+}
+
+.btn-edit:hover {
+  background: #db4938;
+  color: #fff;
+}
